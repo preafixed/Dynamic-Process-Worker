@@ -1,4 +1,4 @@
-from gui.GuiUtils import convert_string_to_date, calculate_time
+from gui.GuiUtils import calculate_time
 from process.ProcessModel import default_elements
 
 
@@ -50,6 +50,19 @@ class GuiStyling:
 
         return text
 
+    def is_default(self, attr_name):
+        """
+        Check if an attribute is default or not
+        :param attr_name: Name of the attribute
+        :return:
+        """
+
+        for element in default_elements():
+            if attr_name == element[1]:
+                return True
+
+        return False
+
     def special_attr(self, attr_name: str, process_model: dict):
         """
         Calculate the progress and time
@@ -63,8 +76,10 @@ class GuiStyling:
             return round(float(process_model[attr_name]) / float(self.max_progress) * 100)
         elif attr_name == "time_started":
             return calculate_time(process_model[attr_name])
-        else:
+        elif self.is_default(attr_name):
             return process_model[attr_name]
+        else:
+            return process_model['args'][0][attr_name]
 
     def get_prefix(self, process_model: dict):
         """

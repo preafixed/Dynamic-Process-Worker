@@ -41,13 +41,13 @@ def do_work(thread_id, loop_count, event: Event, queue: Queue, process_manager: 
         )
 
     for i in range(loop_count):
-        for x in range(100):
+        for x in range(10):
             process_manager.update(thread_id, progress=x + 1, iteration=i)
             """
             Update the current processes, with new information
             """
 
-            time.sleep(0.1)
+            time.sleep(1)
             if event.is_set():
                 close_process()
                 """
@@ -86,7 +86,7 @@ def start_process_worker_gui():
     """
 
     gui_worker = GuiWorker()
-    ProcessWorker(do_work, gui_worker, thread_count=2, callback=retrieve_results)
+    ProcessWorker(do_work, gui_worker=gui_worker, thread_count=2, callback=retrieve_results)
 
 
 if __name__ == '__main__':
