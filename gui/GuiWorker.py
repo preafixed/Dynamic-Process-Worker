@@ -166,7 +166,7 @@ class GuiWorker:
         :return: a percentage from (0-100%)
         """
 
-        return (process_model.progress / float(self.max_progress)) * 10
+        return (process_model.progress / float(self.max_progress)) * 100
 
     def update_progress(self, process: ProcessModel):
         """
