@@ -13,7 +13,7 @@ class ProcessWorker:
     """
 
     def __init__(self, worker, *args, gui_worker=None, thread_count=1, loop_count=1,
-                 max_progress=10, gui=True, callback=None):
+                 max_progress=100, gui=True, callback=None):
         """
         Initialize the Process Worker with the given arguments
         :param worker: The worker method, which gets spawned
