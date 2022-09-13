@@ -1,5 +1,5 @@
-from gui.GuiUtils import calculate_time
-from process.ProcessModel import default_elements
+from src.gui.GuiUtils import calculate_time
+from src.process.ProcessModel import default_elements
 
 
 def default():

@@ -1,8 +1,8 @@
 import json
 from multiprocessing import Queue
 
-from gui.GuiUtils import print_message
-from process.ProcessModel import ProcessModel
+from src.gui.GuiUtils import print_message
+from src.process.ProcessModel import ProcessModel
 
 
 class ProcessManager:

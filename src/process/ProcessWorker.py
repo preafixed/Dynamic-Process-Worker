@@ -1,10 +1,9 @@
-import sys
 from multiprocessing import Process, Event, Queue
 
-from gui.GuiWorker import GuiWorker
-from process.ProcessManager import ProcessManager
-from process.ProcessModel import ProcessModel
-from process.ProcessUtils import join_all, get_all
+from src.gui.GuiWorker import GuiWorker
+from src.process.ProcessManager import ProcessManager
+from src.process.ProcessModel import ProcessModel
+from src.process.ProcessUtils import join_all, get_all
 
 
 class ProcessWorker:

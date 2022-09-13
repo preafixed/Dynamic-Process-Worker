@@ -10,11 +10,11 @@ from spacy.scorer import Scorer
 from spacy.util import minibatch, compounding
 from spacy.training import Example
 
-from gui.GuiStyling import GuiStyling
-from gui.GuiUtils import calculate_time
-from gui.GuiWorker import GuiWorker
-from process.ProcessManager import ProcessManager
-from process.ProcessWorker import ProcessWorker
+from src.gui.GuiStyling import GuiStyling
+from src.gui.GuiUtils import calculate_time
+from src.gui.GuiWorker import GuiWorker
+from src.process.ProcessManager import ProcessManager
+from src.process.ProcessWorker import ProcessWorker
 
 # spacy.require_gpu()
 

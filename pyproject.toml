@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DynamicProcessWorker_preafixed"
+version = "1.0.0"
+authors = [
+  { name="Cem Bana", email="cembana.business@gmail.com" },
+]
+description = "Python library for creating and managing Process Workers with an optional GUI"
+readme = "README.md"
+license = { file="LICENSE" }
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/preafixed/Dynamic-Process-Worker"

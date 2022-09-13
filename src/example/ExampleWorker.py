@@ -2,10 +2,10 @@ import time
 from multiprocessing import Queue
 from multiprocessing.synchronize import Event
 
-from gui.GuiUtils import calculate_time
-from gui.GuiWorker import GuiWorker
-from process.ProcessManager import ProcessManager
-from process.ProcessWorker import ProcessWorker
+from src.gui.GuiUtils import calculate_time
+from src.gui.GuiWorker import GuiWorker
+from src.process.ProcessManager import ProcessManager
+from src.process.ProcessWorker import ProcessWorker
 
 """
 An example Worker Method to use in the Library Dynamic Process Worker

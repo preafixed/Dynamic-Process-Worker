@@ -3,14 +3,14 @@ import signal
 import time
 import tkinter as tk
 
-from multiprocessing import Queue, Event
+from multiprocessing import Queue
 from threading import Thread
 
 from tkinter import ttk
 
-from gui.GuiStyling import default
-from gui.GuiUtils import print_message
-from process.ProcessModel import ProcessModel
+from src.gui.GuiStyling import default
+from src.gui.GuiUtils import print_message
+from src.process.ProcessModel import ProcessModel
 
 
 class GuiWorker:

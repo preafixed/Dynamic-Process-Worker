@@ -1,6 +1,6 @@
 import json
 
-from gui.GuiUtils import convert_string_to_date, get_current_date, get_current_datetime
+from src.gui.GuiUtils import convert_string_to_date, get_current_date, get_current_datetime
 
 
 def default_elements():
