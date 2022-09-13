@@ -101,7 +101,7 @@ class GuiWorker:
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=3)
 
-        self.progress = self.create_progress_bars(self.root)
+        self.create_progress_bars()
 
         progress_worker = Thread(target=self.do_progress, args=(self.update_progress,))
         progress_worker.start()
@@ -113,33 +113,37 @@ class GuiWorker:
         except Exception:
             print_message("Shutting down TkInter")
 
-    def create_progress_bars(self, root):
+    def create_progress_bars(self):
         """
         Create one pair of UI Elements for each process
         :param root: The TKINTER Root
         :return: An Array of Tuples (prefix: Label, Progressbar, suffix: Label)
         """
 
-        progress = []
-
         for thread in range(self.thread_count):
-            progress_bar = ttk.Progressbar(
-                root,
-                orient='horizontal',
-                value=0,
-                length=400,
-            )
+            self.create_progress_bar(thread)
 
-            process_label = ttk.Label(root, text="")
-            process_info_label = ttk.Label(root, text="")
+    def create_progress_bar(self, pid):
+        """
+        Creates a single instance of a process layout
+        :param pid: The ID of the thread (not important)
+        """
 
-            process_label.grid(column=0, row=thread, sticky=tk.W, padx=5, pady=5)
-            progress_bar.grid(column=1, row=thread, sticky=tk.W, padx=10, pady=10)
-            process_info_label.grid(column=2, row=thread, sticky=tk.W, padx=5, pady=5)
+        progress_bar = ttk.Progressbar(
+            self.root,
+            orient='horizontal',
+            value=0,
+            length=400,
+        )
 
-            progress.append((process_label, progress_bar, process_info_label))
+        process_label = ttk.Label(self.root, text="")
+        process_info_label = ttk.Label(self.root, text="")
 
-        return progress
+        process_label.grid(column=0, row=pid, sticky=tk.W, padx=5, pady=5)
+        progress_bar.grid(column=1, row=pid, sticky=tk.W, padx=10, pady=10)
+        process_info_label.grid(column=2, row=pid, sticky=tk.W, padx=5, pady=5)
+
+        self.progress.append((process_label, progress_bar, process_info_label))
 
     def get_prefix(self, process_model: dict):
         """
@@ -173,6 +177,9 @@ class GuiWorker:
         Updates the progress of all worker processes
         """
 
+        if process.pid >= len(self.progress):
+            self.create_progress_bar(process.pid)
+
         if self.progress:
             ui_elements = self.progress[process.pid]
 
@@ -195,4 +202,3 @@ class GuiWorker:
             if self.main_event.is_set():
                 self.terminate_worker(forced=False)
                 break
-

@@ -1,4 +1,6 @@
+import asyncio
 from multiprocessing import Process, Event, Queue
+from threading import Thread
 
 from src.gui.GuiWorker import GuiWorker
 from src.process.ProcessManager import ProcessManager
@@ -47,26 +49,11 @@ class ProcessWorker:
         self.__start_gui_worker()
 
         for process_id in range(self.thread_count):
-            process = Process(target=self.worker, args=(process_id, self.loop_count,
-                                                        self.event, self.queue, self.process_manager, self.args))
-            """
-            :param target: The Worker to run
-            :param process_id: The Process (PID)
-            :param loop_count: Amount of Loops
-            :param event: Multiprocessing.Event for 
-                            handling stop events
-            :param queue: Collecting results of the
-                            running processes
-            :param process_manager: Update the current
-                            process information
-            :param args: Other arguments for worker
-            """
+            self.add_worker(self.worker, self.loop_count, self.args)
 
-            self.processes.append(process)
-            self.process_manager.add(ProcessModel(pid=process_id, max_iterations=self.loop_count))
+        Thread(target=self.__create_async).start()
 
-            process.start()
-
+    def __create_async(self):
         join_all(self.processes)
         results = get_all(self.processes, self.queue)
 
@@ -74,6 +61,38 @@ class ProcessWorker:
 
         if self.callback:
             self.callback(results)
+
+    def add_worker(self, worker, loop_count, args):
+        """
+        Add a Worker to the Process Pool
+        :param worker: The worker method
+        :param loop_count: The loop count
+        :param args: The required args
+        """
+
+        new_id = self.process_manager.get_size()
+
+        process = Process(target=worker,
+                          args=(new_id,
+                                loop_count, self.event,
+                                self.queue, self.process_manager, args))
+        """
+        :param target: The Worker to run
+        :param process_id: The Process (PID)
+        :param loop_count: Amount of Loops
+        :param event: Multiprocessing.Event for 
+                        handling stop events
+        :param queue: Collecting results of the
+                        running processes
+        :param process_manager: Update the current
+                        process information
+        :param args: Other arguments for worker
+        """
+
+        self.processes.append(process)
+        self.process_manager.add(ProcessModel(pid=new_id, max_iterations=loop_count))
+
+        process.start()
 
     def __start_gui_worker(self):
         """

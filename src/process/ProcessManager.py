@@ -21,6 +21,9 @@ class ProcessManager:
         self.gui = gui
         self.process_queue = []
 
+    def get_size(self):
+        return len(self.process_queue)
+
     def add(self, process_model: ProcessModel):
         """
         Add a process using a Process Model
