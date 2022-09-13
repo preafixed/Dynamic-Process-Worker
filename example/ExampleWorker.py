@@ -1,5 +1,3 @@
-import os
-import threading
 import time
 from multiprocessing import Queue
 from multiprocessing.synchronize import Event
