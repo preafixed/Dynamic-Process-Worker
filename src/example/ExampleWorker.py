@@ -3,13 +3,7 @@ from multiprocessing import Queue
 from multiprocessing.synchronize import Event
 
 from src.gui.GuiUtils import calculate_time
-from src.gui.GuiWorker import GuiWorker
 from src.process.ProcessManager import ProcessManager
-from src.process.ProcessWorker import ProcessWorker
-
-"""
-An example Worker Method to use in the Library Dynamic Process Worker
-"""
 
 
 def do_work(thread_id, loop_count, event: Event, queue: Queue, process_manager: ProcessManager, args):
@@ -38,58 +32,28 @@ def do_work(thread_id, loop_count, event: Event, queue: Queue, process_manager: 
             }
         )
 
+        quit(0)
+
     for i in range(loop_count):
         for x in range(100):
-            process_manager.update(thread_id, progress=x + 1, iteration=i)
+            process_manager.update(thread_id, progress=x + 1, iteration=i + 1)
             """
             Update the current processes, with new information
             """
 
-            time.sleep(0.1)
+            time.sleep(0.05)
             if event.is_set():
-                close_process()
                 """
                 Received event for closing process
                 So call close_process() method
                 """
 
+                close_process()
                 break
 
     close_process()
 
 
-def retrieve_results(result):
-    """
-    Result has the individual results of the processes
-    saved in an array
-    :param result: Result Array
-    """
+def result(result):
+    print("result")
 
-    print(result)
-
-
-def start_process_worker():
-    """
-    Start the Process Worker without a GUI and call retrieve_results() when
-    the processes have all finished
-    """
-
-    ProcessWorker(do_work, gui=False, thread_count=1, callback=retrieve_results)
-
-
-def start_process_worker_gui():
-    """
-    Start the Process Worker with a GUI and call retrieve_results() when
-    the processes have all finished
-    """
-
-    gui_worker = GuiWorker()
-    process_worker = ProcessWorker(do_work, gui_worker=gui_worker, thread_count=3, callback=retrieve_results)
-
-    time.sleep(1)
-
-    process_worker.add_worker(do_work, 1, None)
-
-
-if __name__ == '__main__':
-    start_process_worker_gui()

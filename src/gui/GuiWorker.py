@@ -74,15 +74,12 @@ class GuiWorker:
         If the TK Window gets closed, terminate all workers with event.set()
         """
 
-        print_message("Terminating all Workers...")
+        print_message("Starting termination of all processes related to DPW...")
 
         if forced:
-            os.kill(self.progress_pid, signal.SIGTERM)
-
             self.main_event.set()
             self.root.destroy()
 
-            quit(0)
         elif not self.keep_open:
             time.sleep(self.keep_open_time)
             self.root.destroy()
@@ -177,11 +174,11 @@ class GuiWorker:
         Updates the progress of all worker processes
         """
 
-        if process.pid >= len(self.progress):
-            self.create_progress_bar(process.pid)
+        if process.index >= len(self.progress):
+            self.create_progress_bar(process.index)
 
         if self.progress:
-            ui_elements = self.progress[process.pid]
+            ui_elements = self.progress[process.index]
 
             ui_elements[0]['text'] = self.get_prefix(process.__dict__)
             ui_elements[2]['text'] = self.get_suffix(process.__dict__)
@@ -202,3 +199,6 @@ class GuiWorker:
             if self.main_event.is_set():
                 self.terminate_worker(forced=False)
                 break
+
+    def terminate_gui_worker(self):
+        os.kill(self.progress_pid, signal.SIGTERM)

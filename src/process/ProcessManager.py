@@ -13,16 +13,32 @@ class ProcessManager:
     def __init__(self, gui, progress_queue):
         """
         Initialize the Process Manager
-        :param progress_queue: The Que for updating progress
+        :param progress_queue: The Queue for updating progress
                                 ! Only if gui=True !
+        result_queue: The Queue for receiving results
         """
 
-        self.progress_queue: Queue = progress_queue
         self.gui = gui
         self.process_queue = []
+        self.result_queue = None
+        self.active_process = None
+        self.result_callback = None
+        self.progress_queue: Queue = progress_queue
 
     def get_size(self):
         return len(self.process_queue)
+
+    def assign_pid(self, process_id, process_pid):
+        """
+        Assign a pid to a started process
+        :param process_id: The index of the process model
+        :param process_pid: The pid of the process
+        """
+
+        queue_content = self.get_process(process_id, keep=False)
+        queue_content = queue_content.update_pid(process_pid)
+
+        self.process_queue[process_id].put(json.dumps(queue_content.to_json()))
 
     def add(self, process_model: ProcessModel):
         """
@@ -31,9 +47,13 @@ class ProcessManager:
         """
 
         self.process_queue.append(Queue())
-        self.process_queue[process_model.pid].put(json.dumps(process_model, default=vars))
+        index = self.get_size() - 1
+        process_model.index = index
+        self.process_queue[index].put(json.dumps(process_model, default=vars))
 
-        print_message("Added new Process Queue(pid=" + str(process_model.pid) + ")")
+        print_message("Added new Process Queue(id=" + str(process_model.index) + ")")
+
+        return process_model
 
     def get_process(self, process_id, keep=True):
         """

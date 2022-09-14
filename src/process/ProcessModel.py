@@ -1,6 +1,6 @@
 import json
 
-from src.gui.GuiUtils import convert_string_to_date, get_current_date, get_current_datetime
+from src.gui.GuiUtils import get_current_date, get_current_datetime, convert_string_to_date
 
 
 def default_elements():
@@ -9,7 +9,7 @@ def default_elements():
     :return: Tuple of elements
     """
 
-    return [("%PID", "pid"), ("%ITER", "iteration"),
+    return [("%PID", "pid"), ("%ID", "index"), ("%ITER", "iteration"),
             ("%MAX_ITER", "max_iteration"), ("%TICKS", "ticks"),
             ("%PROGRESS", "progress"), ("%TIME", "time_started")]
 
@@ -19,11 +19,12 @@ class ProcessModel:
     A Process Model used to represent a unique Process
     """
 
-    def __init__(self, pid=0, is_active=False, iteration=1, max_iterations=1,
+    def __init__(self, index=0, pid=0, is_active=True, iteration=1, max_iterations=1,
                  progress=0, time_started=get_current_date(), last_update=0, ticks=0, *args):
         """
         Creates a Process Model Instance
-        :param pid: The ID of the Process
+        :param index: The index of the process
+        :param pid: The Windows/Unix PID of the Process
         :param is_active: The state of the Process
         :param iteration: The current loop iteration
         :param max_iterations: The maximal iterations
@@ -34,6 +35,7 @@ class ProcessModel:
         :param args: If needed, add other arguments
         """
 
+        self.index = index
         self.pid = pid
         self.is_active = is_active
         self.iteration = iteration
@@ -64,6 +66,17 @@ class ProcessModel:
 
         return self
 
+    def update_pid(self, pid):
+        """
+        Updates the pid of a process model
+        :param pid: The pid to be assigned
+        :return: Process Model (Object)
+        """
+
+        self.pid = pid
+
+        return self
+
     def to_json(self):
         """
         Serialize the Process Model into JSON
@@ -85,7 +98,7 @@ class ProcessModel:
         if type(json_dict) == str:
             json_dict = json.loads(json_dict)
 
-        self.__init__(json_dict['pid'], json_dict['is_active'], json_dict['iteration'],
+        self.__init__(json_dict['index'], json_dict['pid'], json_dict['is_active'], json_dict['iteration'],
                       json_dict['max_iteration'], json_dict['progress'], json_dict['time_started'],
                       json_dict['last_update'], json_dict['ticks'], json_dict['args'])
 
