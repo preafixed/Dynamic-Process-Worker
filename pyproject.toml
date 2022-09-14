@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "DynamicProcessWorker_preafixed"
-version = "1.0.5"
+version = "1.0.6"
 authors = [
   { name="Cem Bana", email="cembana.business@gmail.com" },
 ]
