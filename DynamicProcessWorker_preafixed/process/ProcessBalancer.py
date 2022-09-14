@@ -1,12 +1,12 @@
 import time
+import psutil
+
 from multiprocessing import Queue
 from threading import Thread
 
-import psutil
-
-from src.gui.GuiUtils import print_message
-from src.process.ProcessManager import ProcessManager
-from src.process.ProcessModel import ProcessModel
+from DynamicProcessWorker_preafixed.gui.GuiUtils import print_message
+from DynamicProcessWorker_preafixed.process.ProcessManager import ProcessManager
+from DynamicProcessWorker_preafixed.process.ProcessModel import ProcessModel
 
 
 class ProcessBalancer:

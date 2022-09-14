@@ -1,5 +1,5 @@
-from src.gui.GuiUtils import calculate_time
-from src.process.ProcessModel import default_elements
+from DynamicProcessWorker_preafixed.gui.GuiUtils import calculate_time
+from DynamicProcessWorker_preafixed.process.ProcessModel import default_elements
 
 
 def default():

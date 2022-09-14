@@ -2,8 +2,8 @@ import time
 from multiprocessing import Queue
 from multiprocessing.synchronize import Event
 
-from src.gui.GuiUtils import calculate_time
-from src.process.ProcessManager import ProcessManager
+from DynamicProcessWorker_preafixed.gui.GuiUtils import calculate_time
+from DynamicProcessWorker_preafixed.process.ProcessManager import ProcessManager
 
 
 def do_work(thread_id, loop_count, event: Event, queue: Queue, process_manager: ProcessManager, args):

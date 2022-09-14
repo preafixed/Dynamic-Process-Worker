@@ -1,8 +1,6 @@
 import json
+import ProcessModel
 from multiprocessing import Queue
-
-from src.gui.GuiUtils import print_message
-from src.process.ProcessModel import ProcessModel
 
 
 class ProcessManager:
@@ -68,7 +66,7 @@ class ProcessManager:
         if keep:
             self.process_queue[process_id].put(json.dumps(queue_content, default=vars))
 
-        return ProcessModel().from_json(queue_content)
+        return ProcessModel.ProcessModel().from_json(queue_content)
 
     def update(self, process_id, iteration=None, progress=None, args=None):
         """

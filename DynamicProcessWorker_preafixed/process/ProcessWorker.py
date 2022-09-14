@@ -1,10 +1,11 @@
 import time
 from threading import Thread
 from multiprocessing import Process, Event, Queue
-from src.gui import GuiWorker
-from src.gui.GuiUtils import print_message
-from src.process.ProcessManager import ProcessManager
-from src.process.ProcessBalancer import ProcessBalancer
+
+from DynamicProcessWorker_preafixed.gui import GuiWorker
+from DynamicProcessWorker_preafixed.gui.GuiUtils import print_message
+from DynamicProcessWorker_preafixed.process.ProcessManager import ProcessManager
+from DynamicProcessWorker_preafixed.process.ProcessBalancer import ProcessBalancer
 
 
 class ProcessWorker:

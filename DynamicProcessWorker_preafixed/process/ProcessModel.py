@@ -1,6 +1,7 @@
 import json
 
-from src.gui.GuiUtils import get_current_date, get_current_datetime, convert_string_to_date
+from DynamicProcessWorker_preafixed.gui.GuiUtils import get_current_date, get_current_datetime, \
+    convert_string_to_date
 
 
 def default_elements():

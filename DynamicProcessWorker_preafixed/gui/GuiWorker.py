@@ -5,12 +5,11 @@ import tkinter as tk
 
 from multiprocessing import Queue
 from threading import Thread
-
 from tkinter import ttk
 
-from src.gui.GuiStyling import default
-from src.gui.GuiUtils import print_message
-from src.process.ProcessModel import ProcessModel
+from DynamicProcessWorker_preafixed.gui.GuiStyling import default
+from DynamicProcessWorker_preafixed.gui.GuiUtils import print_message
+from DynamicProcessWorker_preafixed.process.ProcessModel import ProcessModel
 
 
 class GuiWorker:

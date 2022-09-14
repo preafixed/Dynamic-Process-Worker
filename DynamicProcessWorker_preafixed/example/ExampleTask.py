@@ -1,8 +1,8 @@
 import time
 
-from src.example import ExampleWorker
-from src.gui.GuiWorker import GuiWorker
-from src.process.ProcessWorker import ProcessWorker
+from DynamicProcessWorker_preafixed.example import ExampleWorker
+from DynamicProcessWorker_preafixed.gui.GuiWorker import GuiWorker
+from DynamicProcessWorker_preafixed.process.ProcessWorker import ProcessWorker
 
 """
 An example Worker Class to use in the Library Dynamic Process Worker
