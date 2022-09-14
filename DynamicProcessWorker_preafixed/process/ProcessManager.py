@@ -1,6 +1,8 @@
 import json
-import ProcessModel
 from multiprocessing import Queue
+
+from DynamicProcessWorker_preafixed.gui.GuiUtils import print_message
+from DynamicProcessWorker_preafixed.process.ProcessModel import ProcessModel
 
 
 class ProcessManager:
